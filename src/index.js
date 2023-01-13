@@ -8,7 +8,6 @@ const processAPI = (() => {
    const response = await fetch(weatherURL, {mode: 'cors'})
    const catchData = await response.json();
    return await catchData
-
       } catch (error) {
         return console.log("please put a valid search value")
       }
@@ -29,6 +28,8 @@ const processAPI = (() => {
 
   const assignData = async (location) => {
 
+    try {
+
     const currentData = await processData(location)
 
     const locationName = currentData.locationName
@@ -43,6 +44,10 @@ const processAPI = (() => {
     
     genDOMElements.genWeatherBox(locationName,temp,minTemp,maxTemp,humidity,weatherDescUpper,weatherIconURL)
 
+    } catch (error) {
+    return console.log(error)
+    }
+    
   }
    
 
@@ -139,17 +144,47 @@ const genDOMElements = (() => {
 
 const DOMLogic = (() => {
 
+    const submitButton = document.querySelector("button")
+    const searchInput = document.getElementById("location")
+    const form = document.querySelector("form")
+
     const searchWeather = () => {
 
-        const searchInput = document.getElementById("location")
         processAPI.assignData(searchInput.value)
 
     }
 
-    const submitButton = document.querySelector("button")
+    const inputValidation = () => {
 
+       const searchInputError = document.querySelector("#location + span.error")
+       const numbersTest = /^([^0-9]*)$/
+
+
+       if(searchInput.validity.valueMissing || searchInput.validity.tooShort || !numbersTest.test(searchInput.value)){
+
+        searchInputError.textContent = "Please enter a location"
+        searchInputError.className = "error active"
+       }
+        else if (searchInput.validity.valid) {
+            searchInputError.textContent = ""
+            searchInputError.className = "error"
+            
+        }
+
+    }
+
+    const checkSubmit = () => {
+        if (!searchInput.validity.valid){
+            e.preventDefault()
+        }
+    }
+
+
+
+    form.addEventListener("submit",(e) => {checkSubmit(e)})
     submitButton.addEventListener("click",searchWeather)
-
+    searchInput.addEventListener("input",inputValidation)
+    searchInput.addEventListener("blur",inputValidation)
 
 })();
 
