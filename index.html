@@ -5,20 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
     <title>Weather App</title>
 </head>
 <body>
-    <main>
-          <section>
+    <header>
+          <section class="header-section">
             <div class="main-container">
                 <form class="form-container">
                     <ul>
-                        <li class="form-title">Enter your location</li>
                         <li class="input-container">
                             <label for="location">
                                 <span class="input-text">Country/City</span>
-                                <input type="location" id="location" name="user_location">
+                                <input type="text" id="location" name="user_location" minlength="2" required>
                                 <span class="error"></span>
                             </label>
                         </li>
@@ -28,8 +27,10 @@
                     </ul>
                 </form>
             </div>
-          </section>         
-    </main> 
+          </section>     
+    </header>
+    <main>
+    </main>
     <footer></footer>
 </body>
 </html>
