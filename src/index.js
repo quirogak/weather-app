@@ -29,7 +29,7 @@ const processAPI = (() => {
 
   const assignData = async () => {
 
-    const currentData = await processData("Cali")
+    const currentData = await processData("paris")
 
     const locationName = currentData.locationName
     const temp = currentData.mainDetails.temp
@@ -37,9 +37,11 @@ const processAPI = (() => {
     const maxTemp = currentData.mainDetails.temp_max
     const humidity = currentData.mainDetails.humidity
     const weatherDesc = currentData.weatherDetails.description
+    const weatherDescUpper = weatherDesc.charAt(0).toUpperCase() + weatherDesc.slice(1)
+
     const weatherIconURL = "http://openweathermap.org/img/wn/"+currentData.weatherDetails.icon+"@2x.png"
     
-    genDOMElements.genWeatherBox(locationName,temp,minTemp,maxTemp,humidity,weatherDesc,weatherIconURL)
+    genDOMElements.genWeatherBox(locationName,temp,minTemp,maxTemp,humidity,weatherDescUpper,weatherIconURL)
 
   }
    
@@ -68,15 +70,55 @@ const genDOMElements = (() => {
         secondHalf.classList= "second-container"
         weatherBox.appendChild(secondHalf)
 
+        const firstHalfSection = document.createElement("section")
+        firstHalf.appendChild(firstHalfSection)
+
+        const firstHalfSectionTwo = document.createElement("section")
+        firstHalf.appendChild(firstHalfSectionTwo)
+
         const tempTitle = document.createElement("h2")
         tempTitle.classList = "temp-title"
-        firstHalf.appendChild(tempTitle)
+        firstHalfSection.appendChild(tempTitle)
         tempTitle.textContent = temp+"°"
 
         const locationTitle = document.createElement("h2")
         locationTitle.classList = "location-title"
-        firstHalf.appendChild(locationTitle)
+        firstHalfSection.appendChild(locationTitle)
         locationTitle.textContent = locationName
+
+        const maxTempTitle = document.createElement("h3")
+        maxTempTitle.classList = "max-temp-title"
+        firstHalfSectionTwo.appendChild(maxTempTitle)
+        maxTempTitle.textContent = "Max: "+maxTemp
+
+        const minTempTitle = document.createElement("h3")
+        minTempTitle.classList = "min-temp-title"
+        firstHalfSectionTwo.appendChild(minTempTitle)
+        minTempTitle.textContent = "Min: "+minTemp
+
+        const secondHalfSection = document.createElement("section")
+        secondHalfSection.classList = "second-half-section"
+        secondHalf.appendChild(secondHalfSection)
+
+        const weatherImage = document.createElement("img")
+        weatherImage.classList = "weather-img"
+        secondHalfSection.appendChild(weatherImage)
+        weatherImage.src = weatherIconURL
+
+        const description = document.createElement("h2")
+        description.classList = "weather-desc"
+        secondHalfSection.appendChild(description)
+        description.textContent = weatherDesc
+
+        const secondHalfSectionTwo = document.createElement("section")
+        secondHalfSectionTwo.classList = "second-half-section"
+        secondHalf.appendChild(secondHalfSectionTwo)
+
+        const humidityTitle = document.createElement("h2")
+        humidityTitle.classList = "weather-hum"
+        secondHalfSectionTwo.appendChild(humidityTitle)
+        humidityTitle.textContent ="Humidity  "+ humidity+"%"
+
        
     }
 
