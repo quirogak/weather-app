@@ -27,9 +27,9 @@ const processAPI = (() => {
 
    }
 
-  const assignData = async () => {
+  const assignData = async (location) => {
 
-    const currentData = await processData("paris")
+    const currentData = await processData(location)
 
     const locationName = currentData.locationName
     const temp = currentData.mainDetails.temp
@@ -37,7 +37,7 @@ const processAPI = (() => {
     const maxTemp = currentData.mainDetails.temp_max
     const humidity = currentData.mainDetails.humidity
     const weatherDesc = currentData.weatherDetails.description
-    const weatherDescUpper = weatherDesc.charAt(0).toUpperCase() + weatherDesc.slice(1)
+    const weatherDescUpper = weatherDesc.charAt(0).toUpperCase() + weatherDesc.slice(1) //turn first letter into uppercase
 
     const weatherIconURL = "http://openweathermap.org/img/wn/"+currentData.weatherDetails.icon+"@2x.png"
     
@@ -46,16 +46,21 @@ const processAPI = (() => {
   }
    
 
-   
-
    return {assignData}
 
 })();
 
+
+
 const genDOMElements = (() => {
+    
 
     const genWeatherBox = (locationName,temp,minTemp,maxTemp,humidity,weatherDesc,weatherIconURL) => {
         
+        const currentWeatherCard = document.querySelector(".weather-container")
+
+        if (currentWeatherCard == null){
+
         const main = document.querySelector("main")
 
         const weatherBox = document.createElement("section")
@@ -118,7 +123,13 @@ const genDOMElements = (() => {
         humidityTitle.classList = "weather-hum"
         secondHalfSectionTwo.appendChild(humidityTitle)
         humidityTitle.textContent ="Humidity  "+ humidity+"%"
-
+            
+        }
+        else{  
+            currentWeatherCard.remove()
+            const submitButton = document.querySelector("button")
+            submitButton.click()
+    }
        
     }
 
@@ -126,8 +137,24 @@ const genDOMElements = (() => {
 
 })();
 
+const DOMLogic = (() => {
 
-processAPI.assignData()
+    const searchWeather = () => {
+
+        const searchInput = document.getElementById("location")
+        processAPI.assignData(searchInput.value)
+
+    }
+
+    const submitButton = document.querySelector("button")
+
+    submitButton.addEventListener("click",searchWeather)
+
+
+})();
+
+
+
 
 
 
