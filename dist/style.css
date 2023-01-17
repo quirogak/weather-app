@@ -4,35 +4,26 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-body {
-    background-image: url("./img/25503.svg");
-    background-attachment:fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-}
-
-header {
-    width: 100%;
-    height: 20%;
-}
-
-
 
 .main-container {
-    width: 15%;
-    height: 20vh;
-    background-color: #001220;
+    width: 20%;
+    height: 100%;
+    border: 1px solid black;
     border-radius: 10px;
 }
 
 .header-section {
     padding-top: 10px;
-    height: 23%;
+    padding-bottom: 10px;
+    height: 20%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    
+    
 }
 
 form {
@@ -50,7 +41,7 @@ ul {
 
 li {
     list-style: none;
-    color: white;
+    color: rgb(0, 0, 0);
     border: 0;
     
 }
@@ -101,6 +92,7 @@ input {
     color: black;
     height: 15px;
     width: 90%;
+    border: 1px solid black;
 }
 
 
@@ -119,11 +111,22 @@ input:active{
 
 main {
     width: 100%;
-    height: 78vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+main {
+    height: 95vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
 }
+
 
 .weather-container {
     width: 40%;
@@ -136,6 +139,9 @@ main {
     box-sizing: border-box;
     padding: 30px;
     display: flex;
+    position: relative;
+    top: 10px;
+    
 }
 
 .first-container,
@@ -181,5 +187,20 @@ main {
     font-size: 0.9rem;
     display: flex;
     justify-content: center;
+    color: white;
+}
+
+footer {
+    width: 100%;
+    height: 5vh;
+    background-color: rgb(24, 45, 141);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a:visited {
+    color: white;
 }
 
